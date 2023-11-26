@@ -208,6 +208,14 @@ class Templates:
             model.delete.delete(TEnum.inspection.value, owner_id)
             return redirect('/')
 
+        @self.__app__.route('/insert_owner', methods=['POST'])
+        def insert_owner():
+            fields = request.form
+            model.
+            model.insert(TEnum.owner.value, fields)
+
+            return redirect('/')
+
 
 if __name__ == '__main__':
     app = Flask(__name__)

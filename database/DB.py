@@ -53,7 +53,7 @@ class DataBaseOwner(DataBase):
                 db.query(Owner).filter(Owner.id == data_class.id).update({
                     "fullName": data_class.fullName,
                     "address": data_class.address,
-                    "licence": data_class.licence,
+                    "license": data_class.license,
                     "sex": data_class.sex,
                     "year": data_class.year
                 })

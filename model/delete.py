@@ -6,7 +6,7 @@ def delete(dataclass: int, stmt_id: int):
     if dataclass == 0:
         obj_data = db.get_obj("owner", stmt_id)[0]
         obj = Owner(id=obj_data[0], fullName=obj_data[1], address=obj_data[2], year=obj_data[3], sex=obj_data[4],
-                    licence=obj_data[5])
+                    license=obj_data[5])
         db.delete(obj)
     if dataclass == 1:
         obj_data = db.get_obj("tech_passport", stmt_id)

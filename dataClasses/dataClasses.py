@@ -24,7 +24,7 @@ class Owner(Base):
     address = Column(VARCHAR(45))
     year = Column(INTEGER)
     sex = Column(Enum('male', 'female'))
-    licence = Column(VARCHAR(20))
+    license = Column(VARCHAR(20))
 
 
 class Inspector(Base):
