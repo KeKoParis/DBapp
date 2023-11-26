@@ -3,12 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
+
+    <link rel="stylesheet" href="../static/main.css">
 </head>
 <body>
 
-<form method="get" action="/page/owner">
+<!--Owner-->
+<div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
+    {{tables[0]}}
+    <p>page {{pages[0]}}</p>
+    <form method="post" action="/owner/next">
+        <input type="hidden" name="next" value="{{pages[0]}}">
+        <input type="submit" value="next">
+    </form>
 
-</form>
+    <form method="post" action="/owner/prev">
+        <input type="hidden" name="prev" value="{{pages[0]}}">
+        <input type="submit" value="prev">
+    </form>
+</div>
+
+<!--Passport-->
+<div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
+    {{tables[1]}}
+    <p>page {{pages[1]}}</p>
+    <form method="get" action="/passport/next">
+        <input type="submit" value="next">
+    </form>
+
+    <form method="get" action="/passport/prev">
+        <input type="submit" value="prev">
+    </form>
+</div>
+
+<!--Inspector-->
+<div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
+    {{tables[2]}}
+    <p>page {{pages[2]}}</p>
+    <form method="get" action="/inspector/next">
+        <input type="submit" value="next">
+    </form>
+
+    <form method="get" action="/inspector/prev">
+        <input type="submit" value="prev">
+    </form>
+</div>
+
+<!--Inspection-->
+<div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
+    {{tables[3]}}
+    <p>page {{pages[3]}}</p>
+    <form method="get" action="/inspection/next">
+        <input type="submit" value="next">
+    </form>
+
+    <form method="get" action="/inspection/prev">
+        <input type="submit" value="prev">
+    </form>
+</div>
+
 
 </body>
 </html>

@@ -1,0 +1,12 @@
+table, th, td {
+    border: 1px solid black;
+    background: lightblue;
+}
+
+table{
+    color: red;
+}
+
+td {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Lucida Sans", "Noto Sans", sans-serif;
+}
