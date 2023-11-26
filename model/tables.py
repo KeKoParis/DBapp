@@ -25,7 +25,7 @@ class Tables:
         html_table = owner_header
 
         elements = self.__get_obj__.get_owners(page)
-        print("elements", elements)
+
         html_table = self.__wrap__(elements, html_table)
 
         empty = True

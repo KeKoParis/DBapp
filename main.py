@@ -3,6 +3,7 @@ from enum import Enum
 from flask import Flask, render_template, request, redirect
 from loguru import logger
 
+import model.delete
 from model.tables import Tables
 
 # logger.remove()
@@ -183,15 +184,29 @@ class Templates:
             logger.info("inspection prev button ok")
             return redirect('/')
 
+        @self.__app__.route('/delete_owner', methods=['POST'])
+        def del_owner():
+            owner_id = int(request.form['id'])
+            model.delete.delete(TEnum.owner.value, owner_id)
+            return redirect('/')
 
-class CRUD:
+        @self.__app__.route('/delete_passport', methods=['POST'])
+        def del_passport():
+            owner_id = int(request.form['id'])
+            model.delete.delete(TEnum.passport.value, owner_id)
+            return redirect('/')
 
-    def __init__(self, cur_app):
-        self.__app__ = cur_app
-        self.__run__()
+        @self.__app__.route('/delete_inspector', methods=['POST'])
+        def del_inspector():
+            owner_id = int(request.form['id'])
+            model.delete.delete(TEnum.inspector.value, owner_id)
+            return redirect('/')
 
-    def __run__(self):
-
+        @self.__app__.route('/delete_inspection', methods=['POST'])
+        def del_inspection():
+            owner_id = int(request.form['id'])
+            model.delete.delete(TEnum.inspection.value, owner_id)
+            return redirect('/')
 
 
 if __name__ == '__main__':

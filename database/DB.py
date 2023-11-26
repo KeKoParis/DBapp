@@ -1,5 +1,5 @@
 from loguru import logger
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text, bindparam, INTEGER
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
 
@@ -13,6 +13,18 @@ class DataBase:
         self.__engine__ = create_engine(self.__db__, echo=True)
         self.__Session__ = sessionmaker(autoflush=False, bind=self.__engine__)
 
+    def get_obj(self, table: str, stmt_id: int):
+        query = text(f'select * from {table} where id = :id')
+        query = query.bindparams(bindparam("id", type_=INTEGER))
+        try:
+            with self.__engine__.connect() as connect:
+                result = connect.execute(query, {"id": stmt_id})
+
+            return result.fetchall()
+        except SQLAlchemyError as err:
+            logger.info(err)
+            return None
+
     def insert(self, data_class: Base):
         with self.__Session__(bind=self.__engine__, expire_on_commit=True) as db:
             try:
@@ -24,7 +36,8 @@ class DataBase:
     def delete(self, data_class: Base):
         with self.__Session__(bind=self.__engine__, expire_on_commit=True) as db:
             try:
-                db.delete(data_class)
+                instance = db.merge(data_class)
+                db.delete(instance)
                 db.commit()
             except SQLAlchemyError as err:
                 logger.info(err)

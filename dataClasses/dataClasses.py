@@ -37,7 +37,7 @@ class Inspector(Base):
 
 class Inspection(Base):
     __tablename__ = "inspection"
-    id = Column(INTEGER)
+    id = Column(INTEGER, primary_key=True)
     passportID = Column(INTEGER)
     date = Column(INTEGER)
     inspectorID = Column(INTEGER)
