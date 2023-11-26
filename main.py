@@ -2,7 +2,9 @@ from enum import Enum
 
 from flask import Flask, render_template, request, redirect
 from loguru import logger
+from werkzeug.datastructures.structures import ImmutableMultiDict
 
+import model.insert
 import model.delete
 from model.tables import Tables
 
@@ -210,9 +212,10 @@ class Templates:
 
         @self.__app__.route('/insert_owner', methods=['POST'])
         def insert_owner():
-            fields = request.form
-            model.
-            model.insert(TEnum.owner.value, fields)
+            imd = ImmutableMultiDict
+            raw_fields = request.form
+            fields = imd.to_dict(raw_fields)
+            model.insert.insert(TEnum.owner.value, fields)
 
             return redirect('/')
 
