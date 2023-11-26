@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
 
-from dataClasses import Base, Owner, Passport, Inspector, Inspection
+from dataClasses.dataClasses import Base, Owner, Passport, Inspector, Inspection
 
 
 class DataBase:
@@ -53,7 +53,7 @@ class DataBasePassport(DataBase):
     def update(self, data_class: Passport):
         with self.__Session__(bind=self.__engine__, expire_on_commit=True) as db:
             try:
-                db.query(Owner).filter(Passport.id == data_class.id).update({
+                db.query(Passport).filter(Passport.id == data_class.id).update({
                     "ownerID": data_class.ownerID,
                     "passportNum": data_class.passportNum,
                     "carNum": data_class.carNum,
@@ -70,7 +70,7 @@ class DataBaseInspector(DataBase):
     def update(self, data_class: Inspector):
         with self.__Session__(bind=self.__engine__, expire_on_commit=True) as db:
             try:
-                db.query(Owner).filter(Inspector.id == data_class.id).update({
+                db.query(Inspector).filter(Inspector.id == data_class.id).update({
                     "fullName": data_class.fullName,
                     "title": data_class.title,
                     "rank": data_class.rank
@@ -84,7 +84,7 @@ class DataBaseInspection(DataBase):
     def update(self, data_class: Inspection):
         with self.__Session__(bind=self.__engine__, expire_on_commit=True) as db:
             try:
-                db.query(Owner).filter(Inspection.id == data_class.id).update({
+                db.query(Inspection).filter(Inspection.id == data_class.id).update({
                     "passportID": data_class.passportID,
                     "date": data_class.date,
                     "inspectorID": data_class.inspectorID,
@@ -93,5 +93,3 @@ class DataBaseInspection(DataBase):
                 db.commit()
             except SQLAlchemyError as err:
                 logger.info(err)
-
-
