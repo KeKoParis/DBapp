@@ -5,10 +5,12 @@
     <title>Main</title>
 
     <link rel="stylesheet" href="../static/main.css">
+    <script src="../static/stay_on.js"></script>
+
 </head>
 <body>
 
-<!--Owner-->
+<!--Owner is 0-->
 <div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
     {{tables[0]}}
     <p>page {{pages[0]}}</p>
@@ -27,11 +29,13 @@
 <div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
     {{tables[1]}}
     <p>page {{pages[1]}}</p>
-    <form method="get" action="/passport/next">
+    <form method="post" action="/passport/next">
+        <input type="hidden" name="next" value="{{pages[1]}}">
         <input type="submit" value="next">
     </form>
 
-    <form method="get" action="/passport/prev">
+    <form method="post" action="/passport/prev">
+        <input type="hidden" name="prev" value="{{pages[1]}}">
         <input type="submit" value="prev">
     </form>
 </div>
@@ -40,11 +44,13 @@
 <div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
     {{tables[2]}}
     <p>page {{pages[2]}}</p>
-    <form method="get" action="/inspector/next">
+    <form method="post" action="/inspector/next">
+        <input type="hidden" name="next" value="{{pages[2]}}">
         <input type="submit" value="next">
     </form>
 
-    <form method="get" action="/inspector/prev">
+    <form method="post" action="/inspector/prev">
+        <input type="hidden" name="prev" value="{{pages[2]}}">
         <input type="submit" value="prev">
     </form>
 </div>
@@ -53,11 +59,13 @@
 <div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
     {{tables[3]}}
     <p>page {{pages[3]}}</p>
-    <form method="get" action="/inspection/next">
+    <form method="post" action="/inspection/next">
+        <input type="hidden" name="next" value="{{pages[3]}}">
         <input type="submit" value="next">
     </form>
 
-    <form method="get" action="/inspection/prev">
+    <form method="post" action="/inspection/prev">
+        <input type="hidden" name="prev" value="{{pages[3]}}">
         <input type="submit" value="prev">
     </form>
 </div>

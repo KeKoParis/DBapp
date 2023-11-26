@@ -28,9 +28,9 @@ class Templates:
         self.__table__ = Tables()
 
         logger.info('server is running')
-        self.run()
+        self.__run__()
 
-    def run(self):
+    def __run__(self):
         @self.__app__.route('/')
         def main_page():
             """
@@ -52,7 +52,7 @@ class Templates:
                 self.__html_tables__.append(
                     self.__table__.create_inspection_list(self.__pages__[TEnum.inspection.value])[0])
 
-            logger.info('main_page success')
+            logger.info('page formed success')
             return render_template('main.html', tables=self.__html_tables__, pages=self.__pages__)
 
         @self.__app__.route('/owner/next', methods=['POST'])
@@ -60,6 +60,7 @@ class Templates:
             curr_page = int(request.form['next'])
 
             res = self.__table__.create_owner_list(curr_page + 1)
+
             new_page = res[0]
             empty = res[1]
 
@@ -67,7 +68,130 @@ class Templates:
                 self.__html_tables__[TEnum.owner.value] = new_page
                 self.__pages__[TEnum.owner.value] += 1
 
+            logger.info("owner next button ok")
             return redirect('/')
+
+        @self.__app__.route('/owner/prev', methods=['POST'])
+        def owner_prev_page():
+            curr_page = int(request.form['prev'])
+
+            if curr_page != 0:
+                res = self.__table__.create_owner_list(curr_page - 1)
+                new_page = res[0]
+                empty = res[1]
+
+                if empty:
+                    self.__html_tables__[TEnum.owner.value] = new_page
+                    self.__pages__[TEnum.owner.value] -= 1
+
+            logger.info("owner prev button ok")
+            return redirect('/')
+
+        @self.__app__.route('/passport/next', methods=['POST'])
+        def passport_next_page():
+            curr_page = int(request.form['next'])
+
+            res = self.__table__.create_passport_list(curr_page + 1)
+
+            new_page = res[0]
+            empty = res[1]
+
+            if empty:
+                self.__html_tables__[TEnum.passport.value] = new_page
+                self.__pages__[TEnum.passport.value] += 1
+
+            logger.info("passport next button ok")
+            return redirect('/')
+
+        @self.__app__.route('/passport/prev', methods=['POST'])
+        def passport_prev_page():
+            curr_page = int(request.form['prev'])
+
+            if curr_page != 0:
+                res = self.__table__.create_passport_list(curr_page - 1)
+                new_page = res[0]
+                empty = res[1]
+
+                if empty:
+                    self.__html_tables__[TEnum.passport.value] = new_page
+                    self.__pages__[TEnum.passport.value] -= 1
+
+            logger.info("passport prev button ok")
+            return redirect('/')
+
+        @self.__app__.route('/inspector/next', methods=['POST'])
+        def inspector_next_page():
+            curr_page = int(request.form['next'])
+
+            res = self.__table__.create_inspector_list(curr_page + 1)
+
+            new_page = res[0]
+            empty = res[1]
+
+            if empty:
+                self.__html_tables__[TEnum.inspector.value] = new_page
+                self.__pages__[TEnum.inspector.value] += 1
+
+            logger.info("inspector next button ok")
+            return redirect('/')
+
+        @self.__app__.route('/inspector/prev', methods=['POST'])
+        def inspector_prev_page():
+            curr_page = int(request.form['prev'])
+
+            if curr_page != 0:
+                res = self.__table__.create_inspector_list(curr_page - 1)
+                new_page = res[0]
+                empty = res[1]
+
+                if empty:
+                    self.__html_tables__[TEnum.inspector.value] = new_page
+                    self.__pages__[TEnum.inspector.value] -= 1
+
+            logger.info("inspector prev button ok")
+            return redirect('/')
+
+        @self.__app__.route('/inspection/next', methods=['POST'])
+        def inspection_next_page():
+            curr_page = int(request.form['next'])
+
+            res = self.__table__.create_inspection_list(curr_page + 1)
+
+            new_page = res[0]
+            empty = res[1]
+
+            if empty:
+                self.__html_tables__[TEnum.inspection.value] = new_page
+                self.__pages__[TEnum.inspection.value] += 1
+
+            logger.info("inspection next button ok")
+            return redirect('/')
+
+        @self.__app__.route('/inspection/prev', methods=['POST'])
+        def inspection_prev_page():
+            curr_page = int(request.form['prev'])
+
+            if curr_page != 0:
+                res = self.__table__.create_inspection_list(curr_page - 1)
+                new_page = res[0]
+                empty = res[1]
+
+                if empty:
+                    self.__html_tables__[TEnum.inspection.value] = new_page
+                    self.__pages__[TEnum.inspection.value] -= 1
+
+            logger.info("inspection prev button ok")
+            return redirect('/')
+
+
+class CRUD:
+
+    def __init__(self, cur_app):
+        self.__app__ = cur_app
+        self.__run__()
+
+    def __run__(self):
+
 
 
 if __name__ == '__main__':
