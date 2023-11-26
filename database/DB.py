@@ -1,49 +1,97 @@
-from sqlalchemy import Column, INTEGER, VARCHAR, Enum
+from loguru import logger
 from sqlalchemy import create_engine
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
 
-db = "mysql://root:0+8+1+0+2+0+0+3+@localhost/trafficpolice"
-
-engine = create_engine(db, echo=True)
-
-Session = sessionmaker(autoflush=False, bind=engine)
+from dataClasses import Base, Owner, Passport, Inspector, Inspection
 
 
-class Base(DeclarativeBase):
-    pass
+class DataBase:
+
+    def __init__(self):
+        self.__db__ = "mysql://root:0+8+1+0+2+0+0+3+@localhost/trafficpolice"
+        self.__engine__ = create_engine(self.__db__, echo=True)
+        self.__Session__ = sessionmaker(autoflush=False, bind=self.__engine__)
+
+    def insert(self, data_class: Base):
+        with self.__Session__(bind=self.__engine__, expire_on_commit=True) as db:
+            try:
+                db.add(data_class)
+                db.commit()
+            except SQLAlchemyError as err:
+                logger.info(err)
+
+    def delete(self, data_class: Base):
+        with self.__Session__(bind=self.__engine__, expire_on_commit=True) as db:
+            try:
+                db.delete(data_class)
+                db.commit()
+            except SQLAlchemyError as err:
+                logger.info(err)
+
+    def update(self, data_class: Base):
+        pass
 
 
-class Passport(Base):
-    __tablename__ = "tech_passport"
-    id = Column(INTEGER, primary_key=True, autoincrement=True)
-    passportNum = Column(VARCHAR(30))
-    carNum = Column(VARCHAR(10))
-    engineNum = Column(VARCHAR(15))
-    colour = Column(VARCHAR(6))
-    brand = Column(VARCHAR(15))
+class DataBaseOwner(DataBase):
+    def update(self, data_class: Owner):
+        with self.__Session__(bind=self.__engine__, expire_on_commit=True) as db:
+            try:
+                db.query(Owner).filter(Owner.id == data_class.id).update({
+                    "fullName": data_class.fullName,
+                    "address": data_class.address,
+                    "licence": data_class.licence,
+                    "sex": data_class.sex,
+                    "year": data_class.year
+                })
+                db.commit()
+            except SQLAlchemyError as err:
+                logger.info(err)
 
 
-class Owner(Base):
-    __tablename__ = "owner"
-    id = Column(INTEGER, primary_key=True, autoincrement=True)
-    fullName = Column(VARCHAR(40))
-    address = Column(VARCHAR(45))
-    year = Column(INTEGER)
-    sex = Column(Enum('male', 'female'))
-    licence = Column(VARCHAR(20))
-    passportID = Column(INTEGER)
+class DataBasePassport(DataBase):
+    def update(self, data_class: Passport):
+        with self.__Session__(bind=self.__engine__, expire_on_commit=True) as db:
+            try:
+                db.query(Owner).filter(Passport.id == data_class.id).update({
+                    "ownerID": data_class.ownerID,
+                    "passportNum": data_class.passportNum,
+                    "carNum": data_class.carNum,
+                    "engineNum": data_class.engineNum,
+                    "colour": data_class.colour,
+                    "brand": data_class.brand
+                })
+                db.commit()
+            except SQLAlchemyError as err:
+                logger.info(err)
 
 
-with Session(autoflush=False, bind=engine) as db:
-    curr_passport = Passport(passportNum="eaf5fe", carNum="a545", engineNum="are65", colour="efd5fa",
-                             brand="Toyota")
-    db.add(curr_passport)
-    db.commit()
+class DataBaseInspector(DataBase):
+    def update(self, data_class: Inspector):
+        with self.__Session__(bind=self.__engine__, expire_on_commit=True) as db:
+            try:
+                db.query(Owner).filter(Inspector.id == data_class.id).update({
+                    "fullName": data_class.fullName,
+                    "title": data_class.title,
+                    "rank": data_class.rank
+                })
+                db.commit()
+            except SQLAlchemyError as err:
+                logger.info(err)
 
-    curr_owner = Owner(fullName="Jim", address="Minsk", year="1975", sex="male", licence="jefowfksm5",
-                       passportID="1")
 
-    db.add(curr_owner)
-    db.commit()
-    print(curr_owner.id)
+class DataBaseInspection(DataBase):
+    def update(self, data_class: Inspection):
+        with self.__Session__(bind=self.__engine__, expire_on_commit=True) as db:
+            try:
+                db.query(Owner).filter(Inspection.id == data_class.id).update({
+                    "passportID": data_class.passportID,
+                    "date": data_class.date,
+                    "inspectorID": data_class.inspectorID,
+                    "result": data_class.result
+                })
+                db.commit()
+            except SQLAlchemyError as err:
+                logger.info(err)
+
+
