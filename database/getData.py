@@ -24,3 +24,12 @@ class Get:
 
     def get_inspectors(self, page: int):
         pass
+
+    def get_passports(self, page):
+        pass
+
+    def get_owners(self, page):
+        pass
+
+    def get_inspections(self, page):
+        pass
