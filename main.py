@@ -27,8 +27,16 @@ class Templates:
 
     def __init__(self, curr_app):
         self.__pages__ = [0, 0, 0, 0]
+        self.__pages__ = [0, 0, 0, 0]
+        self.__date__ = -1
+        self.__engine_num__ = ""
+
+        self.__additional_tables_pages__ = [0, 0]
         self.__app__ = curr_app
+        self.__addit_tables__ = list()
         self.__html_tables__ = list()
+        self.__additional_tables__ = list()
+
         self.__table__ = Tables()
 
         logger.info('server is running')
@@ -45,8 +53,8 @@ class Templates:
                 3. Inspection
             :return: render_template
             """
-            self.__pages__ = [0, 0, 0, 0]
 
+            self.__pages__ = [0, 0, 0, 0]
             self.__html_tables__.append(
                 self.__table__.create_owner_list(self.__pages__[TEnum.owner.value])[0])
             self.__html_tables__.append(
@@ -282,10 +290,111 @@ class Templates:
         def inspection_crud():
             return render_template('inspection/inspection_crud.html')
 
-
         @self.__app__.route('/additional_tables', methods=['POST'])
         def additional_tables():
+            self.__addit_tables__ = self.__table__.create_additional_list(self.__additional_tables_pages__[0],
+                                                                          self.__additional_tables_pages__[1], 0, '0')
+            return render_template('additional_tables.html', additional_tables=self.__addit_tables__[0],
+                                   pages=self.__additional_tables_pages__)
 
+        @self.__app__.route('/get_additional_tables', methods=['POST'])
+        def get_additional_tables():
+            engine_num = request.form['engine']
+            date = request.form['date']
+            date = date.replace("-", "")
+            if date == "":
+                date = '0'
+            self.__date__ = date
+            self.__engine_num__ = engine_num
+
+            self.__addit_tables__ = self.__table__.create_additional_list(self.__additional_tables_pages__[0],
+                                                                          self.__additional_tables_pages__[1],
+                                                                          int(date),
+                                                                          str(engine_num))
+
+            return render_template('additional_tables.html', additional_tables=self.__addit_tables__[0],
+                                   pages=self.__additional_tables_pages__)
+
+        @self.__app__.route('/additional_tables_rend')
+        def just_addit_tables():
+            return render_template('additional_tables.html', additional_tables=self.__addit_tables__[0],
+                                   pages=self.__additional_tables_pages__)
+
+        @self.__app__.route('/car_addit/next', methods=['POST'])
+        def inspector_addit_next_page():
+            curr_page = int(request.form['next'])
+
+            res = self.__table__.create_additional_list(curr_page + 1,
+                                                        self.__additional_tables_pages__[1],
+                                                        self.__date__,
+                                                        self.__engine_num__)
+
+            new_page = res[0]
+            empty = res[1]
+
+            if empty:
+                self.__additional_tables__ = new_page
+                self.__additional_tables_pages__[0] += 1
+
+            logger.info("additional table next button ok")
+            return redirect('/additional_tables_rend')
+
+        @self.__app__.route('/car_addit/prev', methods=['POST'])
+        def inspector_addit_prev_page():
+            curr_page = int(request.form['prev'])
+
+            if curr_page != 0:
+                res = self.__table__.create_additional_list(curr_page - 1,
+                                                            self.__additional_tables_pages__[1],
+                                                            self.__date__,
+                                                            self.__engine_num__)
+                new_page = res[0]
+                empty = res[2]
+
+                if empty:
+                    self.__additional_tables__ = new_page
+                    self.__additional_tables_pages__[0] -= 1
+
+            logger.info("additional table prev button ok")
+            return redirect('/additional_tables_rend')
+
+        @self.__app__.route('/engine/next', methods=['POST'])
+        def car_addit_next_page():
+            curr_page = int(request.form['next'])
+
+            res = self.__table__.create_additional_list(self.__additional_tables_pages__[1],
+                                                        curr_page + 1,
+                                                        self.__date__,
+                                                        self.__engine_num__)
+
+            new_page = res[0]
+            empty = res[2]
+
+            if empty:
+                self.__additional_tables__ = new_page
+                self.__additional_tables_pages__[1] += 1
+
+            logger.info("additional table next button ok")
+            return redirect('/additional_tables_rend')
+
+        @self.__app__.route('/engine/prev', methods=['POST'])
+        def car_addit_prev_page():
+            curr_page = int(request.form['prev'])
+
+            if curr_page != 0:
+                res = self.__table__.create_additional_list(self.__additional_tables_pages__[0],
+                                                            curr_page - 1,
+                                                            self.__date__,
+                                                            self.__engine_num__)
+                new_page = res[0]
+                empty = res[2]
+
+                if empty:
+                    self.__additional_tables__ = new_page
+                    self.__additional_tables_pages__[1] -= 1
+
+            logger.info("additional table prev button ok")
+            return redirect('/additional_tables_rend')
 
 
 if __name__ == '__main__':

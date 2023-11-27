@@ -3,12 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <title>AdditionalTables</title>
+    <link rel="stylesheet" href="../static/main.css">
+    <script src="../static/stay_on.js"></script>
 </head>
 <body>
 
 <div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
-    {{additional_tables}}
+    {{additional_tables[0]}}
+    {{additional_tables[1]}}
+    <form method="post" action="/car_addit/next">
+        <input type="hidden" name="next" value="{{pages[0]}}">
+        <input type="submit" value="next">
+    </form>
+
+    <form method="post" action="/car_addit/prev">
+        <input type="hidden" name="prev" value="{{pages[0]}}">
+        <input type="submit" value="prev">
+    </form>
+
+    {{additional_tables[2]}}
+    {{additional_tables[3]}}
+    {{additional_tables[4]}}
+
+
+    <form method="post" action="/engine/next">
+        <input type="hidden" name="next" value="{{pages[1]}}">
+        <input type="submit" value="next">
+    </form>
+
+    <form method="post" action="/engine/prev">
+        <input type="hidden" name="prev" value="{{pages[1]}}">
+        <input type="submit" value="prev">
+    </form>
 </div>
+
+
+<div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
+
+    <form method="post" action="/get_additional_tables">
+        <label for="engine">Inspector</label>
+        <input type="text" id="engine" name="engine"><br>
+
+        <!--
+
+
+
+        -->
+        <label for="date">Car</label>
+        <input type="date" id="date" name="date"><br>
+        <input type="submit">
+
+    </form>
+
+    <form method="post" action="/render/main">
+        <input type="submit" value="main">
+    </form>
+</div>
+
 
 </body>
 </html>

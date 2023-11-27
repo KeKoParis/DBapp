@@ -23,7 +23,7 @@ class Get:
 
             return result.fetchall()
         except SQLAlchemyError as err:
-            logger.info(err)
+            logger.error(err)
             return None
 
     def get_car_inspections(self, engine_num: str, page: int):
@@ -38,7 +38,7 @@ class Get:
 
             return result.fetchall()
         except SQLAlchemyError as err:
-            logger.info(err)
+            logger.error(err)
             return None
 
     def get_inspectors(self, page: int):
@@ -53,7 +53,7 @@ class Get:
 
             return result.fetchall()
         except SQLAlchemyError as err:
-            logger.info(err)
+            logger.error(err)
             return None
 
     def get_passports(self, page):
@@ -68,7 +68,7 @@ class Get:
 
             return result.fetchall()
         except SQLAlchemyError as err:
-            logger.info(err)
+            logger.error(err)
             return None
 
     def get_owners(self, page):
@@ -83,7 +83,7 @@ class Get:
 
             return result.fetchall()
         except SQLAlchemyError as err:
-            logger.info(err)
+            logger.error(err)
             return None
 
     def get_inspections(self, page):
@@ -98,12 +98,35 @@ class Get:
 
             return result.fetchall()
         except SQLAlchemyError as err:
-            logger.info(err)
+            logger.error(err)
             return None
 
-    def get_additional_tables(self):
+    def get_additional_tables(self, getcardata_page: int, getinspectiondate_page: int, date: int, engine_num: str):
 
-        query = text("""
-        select * from getcardata
-        limit 10 offset :pages
-        """)
+        query_get_car_data = text("""
+                            select * from getcardata
+                            where engineNum = :engineNum
+                            limit 10 offset :pages
+                            """)
+
+        query_get_inspector = text("""
+                            select * from getinspectiondate
+                            where date = :date
+                            limit 10 offset :pages
+                            """)
+
+        car, inspector = None, None
+
+        with self.__engine__.connect() as connect:
+            try:
+                inspector = connect.execute(
+                    query_get_inspector, {"pages": getinspectiondate_page * 10, "date": date}).fetchall()
+            except SQLAlchemyError as err:
+                logger.error(err)
+            try:
+                car = connect.execute(
+                    query_get_car_data, {"pages": getcardata_page * 10, "engineNum": engine_num}).fetchall()
+            except SQLAlchemyError as err:
+                logger.error(err)
+
+        return inspector, car

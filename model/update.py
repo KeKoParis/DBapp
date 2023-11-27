@@ -22,7 +22,11 @@ def __new_data__(tup: tuple, dict2: dict):
 def update(dataclass: int, data: dict):
     if dataclass == 0:
         db = DataBaseOwner()
-        obj_data = db.get_obj("owner", data['id'])[0]
+        try:
+            obj_data = db.get_obj("owner", data['id'])[0]
+        except IndexError as err:
+            logger.error(err)
+            return
 
         data = __new_data__(obj_data, data)
 
@@ -32,7 +36,11 @@ def update(dataclass: int, data: dict):
         db.update(obj)
     if dataclass == 1:
         db = DataBasePassport()
-        obj_data = db.get_obj("tech_passport", data['id'])[0]
+        try:
+            obj_data = db.get_obj("tech_passport", data['id'])[0]
+        except IndexError as err:
+            logger.error(err)
+            return
 
         data = __new_data__(obj_data, data)
 
@@ -42,7 +50,11 @@ def update(dataclass: int, data: dict):
         db.update(obj)
     if dataclass == 2:
         db = DataBaseInspector()
-        obj_data = db.get_obj("inspector", data['id'])[0]
+        try:
+            obj_data = db.get_obj("inspector", data['id'])[0]
+        except IndexError as err:
+            logger.error(err)
+            return
 
         data = __new_data__(obj_data, data)
 
@@ -50,7 +62,11 @@ def update(dataclass: int, data: dict):
         db.insert(obj)
     if dataclass == 3:
         db = DataBaseInspection()
-        obj_data = db.get_obj("inspection", data['id'])[0]
+        try:
+            obj_data = db.get_obj("inspection", data['id'])[0]
+        except IndexError as err:
+            logger.error(err)
+            return
 
         data = __new_data__(obj_data, data)
 

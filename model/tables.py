@@ -1,7 +1,7 @@
 from IPython.display import HTML
 
 from database.getData import Get
-from model.table_headers import owner_header, passports_header, inspection_header, inspector_header
+from model.table_headers import *
 
 
 class Tables:
@@ -72,3 +72,43 @@ class Tables:
             empty = False
 
         return html_table, empty
+
+    def create_additional_list(self, getcardata_page: int, getinspectiondate_page: int, date: int, engine_num: str):
+        additional_tables = self.__get_obj__.get_additional_tables(getcardata_page, getinspectiondate_page, date,
+                                                                   engine_num)
+        html_getcardata_table = get_inspection_date_header
+        html_getinspectiondate_table = get_car_data_header
+
+        result = list()
+
+        page1: bool
+        page2: bool
+
+        if additional_tables is None:
+            result.append(HTML("<h2>Get car data<h2>"))
+            result.append(HTML("<h2>Get car data<h2>"))
+            return result, False, False
+
+
+        if not (additional_tables[0] is None):
+            getcardata_table = additional_tables[0]
+            html_getcardata_table = self.__wrap__(getcardata_table, html_getcardata_table)
+            page1 = True
+        else:
+            html_getcardata_table = self.__wrap__([], html_getcardata_table)
+            page1 = False
+
+        if not (additional_tables[1] is None):
+            getinspectiondate_table = additional_tables[1]
+            html_getinspectiondate_table = self.__wrap__(getinspectiondate_table, html_getinspectiondate_table)
+            page2 = True
+        else:
+            html_getinspectiondate_table = self.__wrap__([], html_getinspectiondate_table)
+            page2 = False
+
+        result.append(HTML("<h2>Get car data<h2>"))
+        result.append(html_getcardata_table)
+        result.append(HTML("<h2>Get car data<h2>"))
+        result.append(html_getinspectiondate_table)
+
+        return result, page1, page2
