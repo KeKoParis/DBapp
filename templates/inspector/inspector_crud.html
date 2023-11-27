@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>InspectorCRUD</title>
+    <link rel="stylesheet" href="../../static/main.css">
+    <script src="../../static/stay_on.js"></script>
+</head>
+<body>
+
+<div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
+    <div style="margin: auto; width: 90%; background: lightcoral; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Delete Inspector</h2>
+        <form method="post" action="/delete_inspector">
+            <label for="text_inspector">Enter id of the inspector to delete</label>
+            <input type="text" id="text_inspector" name="id">
+            <input type="submit">
+        </form>
+    </div>
+    <div style="margin: auto; width: 90%; background: lightblue; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Add Inspector</h2>
+        <form method="post" action="/add_inspector">
+            <label for="add_inspector_name">inspector fullName</label>
+            <input type="text" id="add_inspector_name" name="fullName"><br>
+            <label for="add_inspector_title">inspector title</label>
+            <input type="text" id="add_inspector_title" name="title"><br>
+            <label for="add_inspector_rank">inspector rank</label>
+            <input type="text" id="add_inspector_rank" name="rank"><br>
+            <input type="submit">
+        </form>
+    </div>
+    <div style="margin: auto; width: 90%; background: lightgoldenrodyellow; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Change Inspector</h2>
+        <form method="post" action="/change_passport">
+            <label for="change_inspector_id">inspector id</label>
+            <input type="text" id="change_inspector_id" name="id"><br>
+            <label for="change_inspector_name">inspector fullName</label>
+            <input type="text" id="change_inspector_name" name="fullName"><br>
+            <label for="change_inspector_title">inspector title</label>
+            <input type="text" id="change_inspector_title" name="title"><br>
+            <label for="change_inspector_rank">inspector rank</label>
+            <input type="text" id="change_inspector_rank" name="rank"><br>
+            <input type="submit">
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PassportCRUD</title>
+    <link rel="stylesheet" href="../../static/main.css">
+    <script src="../../static/stay_on.js"></script>
+</head>
+<body>
+
+<div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
+    <div style="margin: auto; width: 90%; background: lightcoral; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Delete Passport</h2>
+        <form method="post" action="/delete_passport">
+            <label for="text_passport">Enter id of the passport to delete</label>
+            <input type="text" id="text_passport" name="id">
+            <input type="submit">
+        </form>
+    </div>
+    <div style="margin: auto; width: 90%; background: lightblue; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Add Passport</h2>
+        <form method="post" action="/add_passport">
+            <label for="add_passport_ownerID">passport ownerID</label>
+            <input type="text" id="add_passport_ownerID" name="ownerID"><br>
+            <label for="add_passport_passportNum">passport passportNum</label>
+            <input type="text" id="add_passport_passportNum" name="passportNum"><br>
+            <label for="add_passport_carNum">passport carNum</label>
+            <input type="text" id="add_passport_carNum" name="carNum"><br>
+            <label for="add_passport_engineNum">passport engineNum</label>
+            <input type="text" id="add_passport_engineNum" name="engineNum"><br>
+            <label for="add_passport_colour">passport colour</label>
+            <input type="text" id="add_passport_colour" name="colour"><br>
+            <label for="add_passport_brand">passport brand</label>
+            <input type="text" id="add_passport_brand" name="brand"><br>
+            <input type="submit">
+        </form>
+    </div>
+    <div style="margin: auto; width: 90%; background: lightgoldenrodyellow; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Change Passport</h2>
+        <form method="post" action="/change_passport">
+            <label for="change_passport_id">passport id (required)</label>
+            <input type="text" id="change_passport_id" name="id"><br>
+            <label for="change_passport_ownerID">passport ownerID</label>
+            <input type="text" id="change_passport_ownerID" name="ownerID"><br>
+            <label for="change_passport_passportNum">passport passportNum</label>
+            <input type="text" id="change_passport_passportNum" name="passportNum"><br>
+            <label for="change_passport_carNum">passport carNum</label>
+            <input type="text" id="change_passport_carNum" name="carNum"><br>
+            <label for="change_passport_engineNum">passport engineNum</label>
+            <input type="text" id="change_passport_engineNum" name="engineNum"><br>
+            <label for="change_passport_colour">passport colour</label>
+            <input type="text" id="change_passport_colour" name="colour"><br>
+            <label for="change_passport_brand">passport brand</label>
+            <input type="text" id="change_passport_brand" name="brand"><br>
+            <input type="submit">
+        </form>
+    </div>
+</div>
+</body>
+</html>

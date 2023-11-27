@@ -48,6 +48,7 @@ class DataBase:
 
 class DataBaseOwner(DataBase):
     def update(self, data_class: Owner):
+        print("dataclass ", data_class.id)
         with self.__Session__(bind=self.__engine__, expire_on_commit=True) as db:
             try:
                 db.query(Owner).filter(Owner.id == data_class.id).update({

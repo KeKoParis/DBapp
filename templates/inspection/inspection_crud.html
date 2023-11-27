@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>InspectionCRUD</title>
+    <link rel="stylesheet" href="../../static/main.css">
+    <script src="../../static/stay_on.js"></script>
+</head>
+<body>
+
+
+<div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
+    <div style="margin: auto; width: 90%; background: lightcoral; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Delete Inspection</h2>
+        <form method="post" action="/delete_inspection">
+            <label for="text_inspection">Enter id of the inspection to delete</label>
+            <input type="text" id="text_inspection" name="id">
+            <input type="submit">
+        </form>
+    </div>
+    <div style="margin: auto; width: 90%; background: lightblue; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Add Inspection</h2>
+        <form method="post" action="/add_inspection">
+            <label for="add_inspection_passportID">inspection passportID</label>
+            <input type="text" id="add_inspection_passportID" name="passportID"><br>
+            <label for="add_inspection_date">inspection date</label>
+            <input type="text" id="add_inspection_date" name="date"><br>
+            <label for="add_inspection_inspectorID">inspection inspectorID</label>
+            <input type="text" id="add_inspection_inspectorID" name="inspectorID"><br>
+            <label for="add_inspection_result">inspection result</label>
+            <input type="text" id="add_inspection_result" name="result"><br>
+            <input type="submit">
+        </form>
+    </div>
+    <div style="margin: auto; width: 90%; background: lightgoldenrodyellow; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Change Inspection</h2>
+        <form method="post" action="/change_inspection">
+            <label for="change_inspection_id">inspection id</label>
+            <input type="text" id="change_inspection_id" name="id"><br>
+            <label for="change_inspection_passportID">inspection passportID</label>
+            <input type="text" id="change_inspection_passportID" name="passportID"><br>
+            <label for="change_inspection_date">inspection date</label>
+            <input type="text" id="change_inspection_date" name="date"><br>
+            <label for="change_inspection_inspectorID">inspection inspectorID</label>
+            <input type="text" id="change_inspection_inspectorID" name="inspectorID"><br>
+            <label for="change_inspection_result">inspection result</label>
+            <input type="text" id="change_inspection_result" name="result"><br>
+            <input type="submit">
+        </form>
+    </div>
+    <form method="post" action="/render/main">
+        <input type="submit" value="main">
+    </form>
+</div>
+
+
+</body>
+</html>

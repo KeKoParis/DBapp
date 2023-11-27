@@ -100,30 +100,152 @@
             <input type="submit">
         </form>
     </div>
+    <div style="margin: auto; width: 90%; background: lightgoldenrodyellow; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Change Owner</h2>
+        <form method="post" action="/change_owner">
+            <label for="change_owner_id">owner id (required)</label>
+            <input type="text" id="change_owner_id" name="id"><br>
+            <label for="change_owner_fullName">New owner full name</label>
+            <input type="text" id="change_owner_fullName" name="fullName"><br>
+            <label for="change_owner_address">New owner address</label>
+            <input type="text" id="change_owner_address" name="address"><br>
+            <label for="change_owner_year">New owner year</label>
+            <input type="text" id="change_owner_year" name="year"><br>
+            <label for="change_owner_sex">New owner sex (male/female)</label>
+            <input type="text" id="change_owner_sex" name="sex"><br>
+            <label for="change_owner_license">New owner licence</label>
+            <input type="text" id="change_owner_license" name="license"><br>
+            <input type="submit">
+        </form>
+    </div>
 </div>
 
 <div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
-    <form method="post" action="/delete_passport">
-        <label for="text_passport">Enter id of the passport to delete</label>
-        <input type="text" id="text_passport" name="id">
-        <input type="submit">
-    </form>
+    <div style="margin: auto; width: 90%; background: lightcoral; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Delete Passport</h2>
+        <form method="post" action="/delete_passport">
+            <label for="text_passport">Enter id of the passport to delete</label>
+            <input type="text" id="text_passport" name="id">
+            <input type="submit">
+        </form>
+    </div>
+    <div style="margin: auto; width: 90%; background: lightblue; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Add Passport</h2>
+        <form method="post" action="/add_passport">
+            <label for="add_passport_ownerID">passport ownerID</label>
+            <input type="text" id="add_passport_ownerID" name="ownerID"><br>
+            <label for="add_passport_passportNum">passport passportNum</label>
+            <input type="text" id="add_passport_passportNum" name="passportNum"><br>
+            <label for="add_passport_carNum">passport carNum</label>
+            <input type="text" id="add_passport_carNum" name="carNum"><br>
+            <label for="add_passport_engineNum">passport engineNum</label>
+            <input type="text" id="add_passport_engineNum" name="engineNum"><br>
+            <label for="add_passport_colour">passport colour</label>
+            <input type="text" id="add_passport_colour" name="colour"><br>
+            <label for="add_passport_brand">passport brand</label>
+            <input type="text" id="add_passport_brand" name="brand"><br>
+            <input type="submit">
+        </form>
+    </div>
+    <div style="margin: auto; width: 90%; background: lightgoldenrodyellow; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Change Passport</h2>
+        <form method="post" action="/change_passport">
+            <label for="change_passport_id">passport id (required)</label>
+            <input type="text" id="change_passport_id" name="id"><br>
+            <label for="change_passport_ownerID">passport ownerID</label>
+            <input type="text" id="change_passport_ownerID" name="ownerID"><br>
+            <label for="change_passport_passportNum">passport passportNum</label>
+            <input type="text" id="change_passport_passportNum" name="passportNum"><br>
+            <label for="change_passport_carNum">passport carNum</label>
+            <input type="text" id="change_passport_carNum" name="carNum"><br>
+            <label for="change_passport_engineNum">passport engineNum</label>
+            <input type="text" id="change_passport_engineNum" name="engineNum"><br>
+            <label for="change_passport_colour">passport colour</label>
+            <input type="text" id="change_passport_colour" name="colour"><br>
+            <label for="change_passport_brand">passport brand</label>
+            <input type="text" id="change_passport_brand" name="brand"><br>
+            <input type="submit">
+        </form>
+    </div>
 </div>
 
 <div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
-    <form method="post" action="/delete_inspector">
-        <label for="text_inspector">Enter id of the inspector to delete</label>
-        <input type="text" id="text_inspector" name="id">
-        <input type="submit">
-    </form>
+    <div style="margin: auto; width: 90%; background: lightcoral; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Delete Inspector</h2>
+        <form method="post" action="/delete_inspector">
+            <label for="text_inspector">Enter id of the inspector to delete</label>
+            <input type="text" id="text_inspector" name="id">
+            <input type="submit">
+        </form>
+    </div>
+    <div style="margin: auto; width: 90%; background: lightblue; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Add Inspector</h2>
+        <form method="post" action="/add_inspector">
+            <label for="add_inspector_name">inspector fullName</label>
+            <input type="text" id="add_inspector_name" name="fullName"><br>
+            <label for="add_inspector_title">inspector title</label>
+            <input type="text" id="add_inspector_title" name="title"><br>
+            <label for="add_inspector_rank">inspector rank</label>
+            <input type="text" id="add_inspector_rank" name="rank"><br>
+            <input type="submit">
+        </form>
+    </div>
+    <div style="margin: auto; width: 90%; background: lightgoldenrodyellow; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Change Inspector</h2>
+        <form method="post" action="/change_passport">
+            <label for="change_inspector_id">inspector id</label>
+            <input type="text" id="change_inspector_id" name="id"><br>
+            <label for="change_inspector_name">inspector fullName</label>
+            <input type="text" id="change_inspector_name" name="fullName"><br>
+            <label for="change_inspector_title">inspector title</label>
+            <input type="text" id="change_inspector_title" name="title"><br>
+            <label for="change_inspector_rank">inspector rank</label>
+            <input type="text" id="change_inspector_rank" name="rank"><br>
+            <input type="submit">
+        </form>
+    </div>
+
 </div>
 
 <div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
-    <form method="post" action="/delete_inspection">
-        <label for="text_inspection">Enter id of the inspection to delete</label>
-        <input type="text" id="text_inspection" name="id">
-        <input type="submit">
-    </form>
+    <div style="margin: auto; width: 90%; background: lightcoral; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Delete Inspection</h2>
+        <form method="post" action="/delete_inspection">
+            <label for="text_inspection">Enter id of the inspection to delete</label>
+            <input type="text" id="text_inspection" name="id">
+            <input type="submit">
+        </form>
+    </div>
+        <div style="margin: auto; width: 90%; background: lightblue; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Add Inspection</h2>
+        <form method="post" action="/add_inspection">
+            <label for="add_inspection_passportID">inspection passportID</label>
+            <input type="text" id="add_inspection_passportID" name="passportID"><br>
+            <label for="add_inspection_date">inspection date</label>
+            <input type="text" id="add_inspection_date" name="date"><br>
+            <label for="add_inspection_inspectorID">inspection inspectorID</label>
+            <input type="text" id="add_inspection_inspectorID" name="inspectorID"><br>
+            <label for="add_inspection_result">inspection result</label>
+            <input type="text" id="add_inspection_result" name="result"><br>
+            <input type="submit">
+        </form>
+    </div>
+    <div style="margin: auto; width: 90%; background: lightgoldenrodyellow; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Change Inspection</h2>
+        <form method="post" action="/change_inspection">
+            <label for="change_inspection_id">inspection id</label>
+            <input type="text" id="change_inspection_id" name="id"><br>
+            <label for="change_inspection_passportID">inspection passportID</label>
+            <input type="text" id="change_inspection_passportID" name="passportID"><br>
+            <label for="change_inspection_date">inspection date</label>
+            <input type="text" id="change_inspection_date" name="date"><br>
+            <label for="change_inspection_inspectorID">inspection inspectorID</label>
+            <input type="text" id="change_inspection_inspectorID" name="inspectorID"><br>
+            <label for="change_inspection_result">inspection result</label>
+            <input type="text" id="change_inspection_result" name="result"><br>
+            <input type="submit">
+        </form>
+    </div>
 </div>
 
 

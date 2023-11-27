@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PassportTable</title>
+    <link rel="stylesheet" href="../../static/main.css">
+    <script src="../../static/stay_on.js"></script>
+</head>
+<body>
+
+<div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
+    {{tables[1]}}
+    <p>page {{pages[1]}}</p>
+    <form method="post" action="/passport/next">
+        <input type="hidden" name="next" value="{{pages[1]}}">
+        <input type="submit" value="next">
+    </form>
+
+    <form method="post" action="/passport/prev">
+        <input type="hidden" name="prev" value="{{pages[1]}}">
+        <input type="submit" value="prev">
+    </form>
+
+
+    <form method="post" action="/owner/crud">
+        <input type="submit" value="crud">
+    </form>
+
+    <form method="post" action="/render/main">
+        <input type="submit" value="main">
+    </form>
+
+</div>
+
+</body>
+</html>

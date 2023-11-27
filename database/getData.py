@@ -100,3 +100,10 @@ class Get:
         except SQLAlchemyError as err:
             logger.info(err)
             return None
+
+    def get_additional_tables(self):
+
+        query = text("""
+        select * from getcardata
+        limit 10 offset :pages
+        """)

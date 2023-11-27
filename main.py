@@ -2,10 +2,11 @@ from enum import Enum
 
 from flask import Flask, render_template, request, redirect
 from loguru import logger
-from werkzeug.datastructures.structures import ImmutableMultiDict
+from werkzeug.datastructures.structures import ImmutableMultiDict as imd
 
-import model.insert
 import model.delete
+import model.insert
+import model.update
 from model.tables import Tables
 
 # logger.remove()
@@ -44,19 +45,19 @@ class Templates:
                 3. Inspection
             :return: render_template
             """
+            self.__pages__ = [0, 0, 0, 0]
 
-            if len(self.__html_tables__) == 0:
-                self.__html_tables__.append(
-                    self.__table__.create_owner_list(self.__pages__[TEnum.owner.value])[0])
-                self.__html_tables__.append(
-                    self.__table__.create_passport_list(self.__pages__[TEnum.passport.value])[0])
-                self.__html_tables__.append(
-                    self.__table__.create_inspector_list(self.__pages__[TEnum.inspector.value])[0])
-                self.__html_tables__.append(
-                    self.__table__.create_inspection_list(self.__pages__[TEnum.inspection.value])[0])
+            self.__html_tables__.append(
+                self.__table__.create_owner_list(self.__pages__[TEnum.owner.value])[0])
+            self.__html_tables__.append(
+                self.__table__.create_passport_list(self.__pages__[TEnum.passport.value])[0])
+            self.__html_tables__.append(
+                self.__table__.create_inspector_list(self.__pages__[TEnum.inspector.value])[0])
+            self.__html_tables__.append(
+                self.__table__.create_inspection_list(self.__pages__[TEnum.inspection.value])[0])
 
             logger.info('page formed success')
-            return render_template('main.html', tables=self.__html_tables__, pages=self.__pages__)
+            return render_template('index.html', tables=self.__html_tables__, pages=self.__pages__)
 
         @self.__app__.route('/owner/next', methods=['POST'])
         def owner_next_page():
@@ -72,7 +73,7 @@ class Templates:
                 self.__pages__[TEnum.owner.value] += 1
 
             logger.info("owner next button ok")
-            return redirect('/')
+            return redirect('/open/table/owner')
 
         @self.__app__.route('/owner/prev', methods=['POST'])
         def owner_prev_page():
@@ -88,7 +89,7 @@ class Templates:
                     self.__pages__[TEnum.owner.value] -= 1
 
             logger.info("owner prev button ok")
-            return redirect('/')
+            return redirect('/open/table/owner')
 
         @self.__app__.route('/passport/next', methods=['POST'])
         def passport_next_page():
@@ -104,7 +105,7 @@ class Templates:
                 self.__pages__[TEnum.passport.value] += 1
 
             logger.info("passport next button ok")
-            return redirect('/')
+            return redirect('/open/table/passport')
 
         @self.__app__.route('/passport/prev', methods=['POST'])
         def passport_prev_page():
@@ -120,7 +121,7 @@ class Templates:
                     self.__pages__[TEnum.passport.value] -= 1
 
             logger.info("passport prev button ok")
-            return redirect('/')
+            return redirect('/open/table/passport')
 
         @self.__app__.route('/inspector/next', methods=['POST'])
         def inspector_next_page():
@@ -136,7 +137,7 @@ class Templates:
                 self.__pages__[TEnum.inspector.value] += 1
 
             logger.info("inspector next button ok")
-            return redirect('/')
+            return redirect('/open/table/inspector')
 
         @self.__app__.route('/inspector/prev', methods=['POST'])
         def inspector_prev_page():
@@ -152,7 +153,7 @@ class Templates:
                     self.__pages__[TEnum.inspector.value] -= 1
 
             logger.info("inspector prev button ok")
-            return redirect('/')
+            return redirect('/open/table/inspector')
 
         @self.__app__.route('/inspection/next', methods=['POST'])
         def inspection_next_page():
@@ -168,7 +169,7 @@ class Templates:
                 self.__pages__[TEnum.inspection.value] += 1
 
             logger.info("inspection next button ok")
-            return redirect('/')
+            return redirect('/open/table/inspection')
 
         @self.__app__.route('/inspection/prev', methods=['POST'])
         def inspection_prev_page():
@@ -184,7 +185,7 @@ class Templates:
                     self.__pages__[TEnum.inspection.value] -= 1
 
             logger.info("inspection prev button ok")
-            return redirect('/')
+            return redirect('/open/table/inspection')
 
         @self.__app__.route('/delete_owner', methods=['POST'])
         def del_owner():
@@ -212,12 +213,79 @@ class Templates:
 
         @self.__app__.route('/insert_owner', methods=['POST'])
         def insert_owner():
-            imd = ImmutableMultiDict
             raw_fields = request.form
             fields = imd.to_dict(raw_fields)
             model.insert.insert(TEnum.owner.value, fields)
 
             return redirect('/')
+
+        @self.__app__.route('/change_owner', methods=['POST'])
+        def update():
+            raw_fields = request.form
+            fields = imd.to_dict(raw_fields)
+            print(fields)
+            model.update.update(TEnum.owner.value, fields)
+
+            return redirect('/')
+
+        @self.__app__.route('/open/table/owner', methods=['POST'])
+        def open_owner_table():
+            return render_template('owner/owner_table.html', tables=self.__html_tables__, pages=self.__pages__)
+
+        @self.__app__.route('/open/table/owner')
+        def render_owner():
+            return render_template('owner/owner_table.html', tables=self.__html_tables__, pages=self.__pages__)
+
+        @self.__app__.route('/open/table/passport', methods=['POST'])
+        def open_passport_table():
+            return render_template('passport/passport_table.html', tables=self.__html_tables__, pages=self.__pages__)
+
+        @self.__app__.route('/open/table/passport')
+        def render_passport():
+            return render_template('passport/passport_table.html', tables=self.__html_tables__, pages=self.__pages__)
+
+        @self.__app__.route('/open/table/inspector', methods=['POST'])
+        def open_inspector_table():
+            return render_template('inspector/inspector_table.html', tables=self.__html_tables__, pages=self.__pages__)
+
+        @self.__app__.route('/open/table/inspector')
+        def render_inspector():
+            return render_template('inspector/inspector_table.html', tables=self.__html_tables__, pages=self.__pages__)
+
+        @self.__app__.route('/open/table/inspection', methods=['POST'])
+        def open_inspection_table():
+            return render_template('inspection/inspection_table.html', tables=self.__html_tables__,
+                                   pages=self.__pages__)
+
+        @self.__app__.route('/open/table/inspection')
+        def render_inspection():
+            return render_template('inspection/inspection_table.html', tables=self.__html_tables__,
+                                   pages=self.__pages__)
+
+        @self.__app__.route('/render/main', methods=['POST'])
+        def render_main():
+            return redirect('/')
+
+        @self.__app__.route('/owner/crud', methods=['POST'])
+        def owner_crud():
+            return render_template('owner/owner_crud.html')
+
+        @self.__app__.route('/passport/crud', methods=['POST'])
+        def passport_crud():
+            return render_template('passport/passport_crud.html')
+
+        @self.__app__.route('/inspector/crud', methods=['POST'])
+        def inspector_crud():
+            return render_template('inspector/inspector_crud.html')
+
+        @self.__app__.route('/inspection/crud', methods=['POST'])
+        def inspection_crud():
+            return render_template('inspection/inspection_crud.html')
+
+
+        @self.__app__.route('/additional_tables', methods=['POST'])
+        def additional_tables():
+
 
 
 if __name__ == '__main__':

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OwnerCrud</title>
+
+    <link rel="stylesheet" href="../../static/main.css">
+    <script src="../../static/stay_on.js"></script>
+
+</head>
+<body>
+
+
+<div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
+    <div style="margin: auto; width: 90%; background: lightcoral; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Delete Owner</h2>
+        <form method="post" action="/delete_owner">
+            <label for="text_owner">Enter id of the owner to delete</label>
+            <input type="text" id="text_owner" name="id">
+            <input type="submit">
+        </form>
+    </div>
+    <div style="margin: auto; width: 90%; background: lightblue; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Add Owner</h2>
+        <form method="post" action="/insert_owner">
+            <label for="insert_owner_fullName">New owner full name</label>
+            <input type="text" id="insert_owner_fullName" name="fullName"><br>
+            <label for="insert_owner_address">New owner address</label>
+            <input type="text" id="insert_owner_address" name="address"><br>
+            <label for="insert_owner_year">New owner year</label>
+            <input type="text" id="insert_owner_year" name="year"><br>
+            <label for="insert_owner_sex">New owner sex (male/female)</label>
+            <input type="text" id="insert_owner_sex" name="sex"><br>
+            <label for="insert_owner_license">New owner licence</label>
+            <input type="text" id="insert_owner_license" name="license"><br>
+            <input type="submit">
+        </form>
+    </div>
+    <div style="margin: auto; width: 90%; background: lightgoldenrodyellow; display: flex; flex-direction: column; padding-top: 0.5%">
+        <h2>Change Owner</h2>
+        <form method="post" action="/change_owner">
+            <label for="change_owner_id">owner id (required)</label>
+            <input type="text" id="change_owner_id" name="id"><br>
+            <label for="change_owner_fullName">New owner full name</label>
+            <input type="text" id="change_owner_fullName" name="fullName"><br>
+            <label for="change_owner_address">New owner address</label>
+            <input type="text" id="change_owner_address" name="address"><br>
+            <label for="change_owner_year">New owner year</label>
+            <input type="text" id="change_owner_year" name="year"><br>
+            <label for="change_owner_sex">New owner sex (male/female)</label>
+            <input type="text" id="change_owner_sex" name="sex"><br>
+            <label for="change_owner_license">New owner licence</label>
+            <input type="text" id="change_owner_license" name="license"><br>
+            <input type="submit">
+        </form>
+    </div>
+
+    <form method="post" action="/render/main">
+        <input type="submit" value="main">
+    </form>
+</div>
+
+</body>
+</html>
