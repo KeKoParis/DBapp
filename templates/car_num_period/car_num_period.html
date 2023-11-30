@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CarNumPeriod</title>
+
+    <link rel="stylesheet" href="../../static/main.css">
+    <script src="../../static/stay_on.js"></script>
+</head>
+<body>
+
+<div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
+    {{table}}
+</div>
+
+<div style="margin: auto; width: 50%; display: flex; flex-direction: column; padding-top: 5em">
+    <form method="post" action="/get_inspections_by_date">
+        <label for="second_date">from date</label>
+        <input id="second_date" type="date" name="second_date">
+        <label for="first_date">to</label>
+        <input id="first_date" type="date" name="first_date">
+        <input type="submit">
+    </form>
+
+    <form method="post" action="/render/main">
+        <input type="submit" value="main">
+    </form>
+</div>
+
+</body>
+</html>

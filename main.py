@@ -228,11 +228,62 @@ class Templates:
             return redirect('/')
 
         @self.__app__.route('/change_owner', methods=['POST'])
-        def update():
+        def update_owner():
             raw_fields = request.form
             fields = imd.to_dict(raw_fields)
             print(fields)
             model.update.update(TEnum.owner.value, fields)
+
+            return redirect('/')
+
+        @self.__app__.route('/change_passport', methods=['POST'])
+        def update_passport():
+            raw_fields = request.form
+            fields = imd.to_dict(raw_fields)
+            print(fields)
+            model.update.update(TEnum.owner.value, fields)
+
+            return redirect('/')
+
+        @self.__app__.route('/change_inspector', methods=['POST'])
+        def update_inspector():
+            raw_fields = request.form
+            fields = imd.to_dict(raw_fields)
+            print(fields)
+            model.update.update(TEnum.owner.value, fields)
+
+            return redirect('/')
+
+        @self.__app__.route('/change_inspection', methods=['POST'])
+        def update_inspection():
+            raw_fields = request.form
+            fields = imd.to_dict(raw_fields)
+            print(fields)
+            model.update.update(TEnum.owner.value, fields)
+
+            return redirect('/')
+
+        @self.__app__.route('/add_inspection', methods=['POST'])
+        def insert_inspection():
+            raw_fields = request.form
+            fields = imd.to_dict(raw_fields)
+            model.insert.insert(TEnum.owner.value, fields)
+
+            return redirect('/')
+
+        @self.__app__.route('/add_inspector', methods=['POST'])
+        def insert_inspector():
+            raw_fields = request.form
+            fields = imd.to_dict(raw_fields)
+            model.insert.insert(TEnum.owner.value, fields)
+
+            return redirect('/')
+
+        @self.__app__.route('/add_passport', methods=['POST'])
+        def insert_passport():
+            raw_fields = request.form
+            fields = imd.to_dict(raw_fields)
+            model.insert.insert(TEnum.owner.value, fields)
 
             return redirect('/')
 
@@ -395,6 +446,24 @@ class Templates:
 
             logger.info("additional table prev button ok")
             return redirect('/additional_tables_rend')
+
+        @self.__app__.route('/inspections_by_date', methods=['POST'])
+        def inspections_by_date():
+            return render_template('car_num_period/car_num_period.html')
+
+        @self.__app__.route('/get_inspections_by_date', methods=['POST'])
+        def get_inspections_by_date():
+            first_date = request.form['first_date']
+            second_date = request.form['second_date']
+            first_date = first_date.replace("-", "")
+            second_date = second_date.replace("-", "")
+
+            if first_date == "" or second_date == "":
+                return redirect("/inspections_by_date")
+
+            table = self.__table__.create_get_car_period(int(first_date), int(second_date))
+
+            return render_template('car_num_period/car_num_period.html', table=table)
 
 
 if __name__ == '__main__':

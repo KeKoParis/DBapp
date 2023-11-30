@@ -88,7 +88,7 @@ class Get:
 
     def get_inspections(self, page):
         query = text("""
-                select * from inspection
+                select * from inspection_names
                 limit 10 offset :pages
                 """)
 
@@ -130,3 +130,22 @@ class Get:
                 logger.error(err)
 
         return inspector, car
+
+    def get_car_period(self, first_date: int, second_date: int):
+        """
+        Get number of cars passed inspection by date
+        :param first_date:
+        :param second_date:
+        :return:
+        """
+
+        query = text("call cars_by_date(:first_date, :second_date)")
+        try:
+            with self.__engine__.begin() as connection:
+                result = connection.execute(query, {"first_date": first_date, "second_date": second_date})
+                data = result.fetchall()
+                result.close()
+            return data
+        except SQLAlchemyError as err:
+            logger.error(err)
+            return None

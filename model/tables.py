@@ -89,7 +89,6 @@ class Tables:
             result.append(HTML("<h2>Get car data<h2>"))
             return result, False, False
 
-
         if not (additional_tables[0] is None):
             getcardata_table = additional_tables[0]
             html_getcardata_table = self.__wrap__(getcardata_table, html_getcardata_table)
@@ -112,3 +111,12 @@ class Tables:
         result.append(html_getinspectiondate_table)
 
         return result, page1, page2
+
+    def create_get_car_period(self, first_date: int, second_date: int):
+        html_table = create_get_car_period
+
+        elements = self.__get_obj__.get_car_period(first_date, second_date)
+
+        html_table = self.__wrap__(elements, html_table)
+
+        return html_table

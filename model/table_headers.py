@@ -12,3 +12,5 @@ inspection_header = "<tr> <td>id</td>  <td>passportID</td>  <td>date</td>\
 get_car_data_header = "<tr> <td>engineNum</td> <td>date</td> <td>result</td> </tr>"
 
 get_inspection_date_header = "<tr> <td>inspector</td> <td>title</td> <td>carNum</td>  <td>result</td></tr>"
+
+create_get_car_period = "<tr> <td>date</td> <td>count</td> </tr>"
